@@ -1,0 +1,23 @@
+[
+    {
+        "codigo": "001",
+        "nombre": "Encebollado",
+        "categoria": "Sopa",
+        "precio": 3.5,
+        "stock": 55
+    },
+    {
+        "codigo": "002",
+        "nombre": "Helado",
+        "categoria": "Alimentos congelados",
+        "precio": 1.5,
+        "stock": 68
+    },
+    {
+        "codigo": "004",
+        "nombre": "Gelatina",
+        "categoria": "Postre",
+        "precio": 1.0,
+        "stock": 129
+    }
+]

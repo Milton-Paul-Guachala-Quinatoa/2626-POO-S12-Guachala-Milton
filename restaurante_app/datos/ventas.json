@@ -1,0 +1,42 @@
+[
+    {
+        "usuario_id": "1727696815",
+        "producto_codigo": "001",
+        "cantidad": 6
+    },
+    {
+        "usuario_id": "1727696815",
+        "producto_codigo": "004",
+        "cantidad": 10
+    },
+    {
+        "usuario_id": "1727696815",
+        "producto_codigo": "001",
+        "cantidad": 6
+    },
+    {
+        "usuario_id": "1727696815",
+        "producto_codigo": "002",
+        "cantidad": 25
+    },
+    {
+        "usuario_id": "1727696815",
+        "producto_codigo": "001",
+        "cantidad": 20
+    },
+    {
+        "usuario_id": "1727696815",
+        "producto_codigo": "002",
+        "cantidad": 30
+    },
+    {
+        "usuario_id": "1727696815",
+        "producto_codigo": "004",
+        "cantidad": 21
+    },
+    {
+        "usuario_id": "1727696815",
+        "producto_codigo": "002",
+        "cantidad": 2
+    }
+]
