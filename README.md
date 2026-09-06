@@ -3,7 +3,6 @@ Restaurante App - Semana 12
 
 Estudiante: Milton Paul Guachala Quinatoa
 
-De qué trata esta tarea
 
 Esta es la continuación del restaurante_app que hice en la semana 11. No agregué funciones nuevas ni cambié lo que ya funcionaba, solo mejoré la forma en que el programa busca y consulta la información, usando diccionarios y un set como pedía la guía.
 
