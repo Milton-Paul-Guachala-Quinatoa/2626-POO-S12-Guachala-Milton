@@ -1,165 +1,56 @@
 # 2626-POO-S12-Guachala-Milton
-# Restaurante App - Semana 12
+Restaurante App - Semana 12
 
-## Estudiante
+Estudiante: Milton Paul Guachala Quinatoa
 
-Milton Paul Guachala Quinatoa
+De qué trata esta tarea
 
-## Descripción
+Esta es la continuación del restaurante_app que hice en la semana 11. No agregué funciones nuevas ni cambié lo que ya funcionaba, solo mejoré la forma en que el programa busca y consulta la información, usando diccionarios y un set como pedía la guía.
 
-Este proyecto corresponde a la evolución de `restaurante_app` de la Semana 11.
+Las listas de productos, usuarios y ventas se quedaron igual, porque todavía se necesitan para guardar todo en los JSON y para listar los datos en pantalla. Lo que agregué son estructuras extra (dict y set) que ayudan a que las búsquedas sean más rápidas.
 
-Se conservaron las funcionalidades de productos, usuarios, ventas, control de
-stock y persistencia mediante archivos JSON. En esta Semana 12 se mejoró el
-rendimiento de las búsquedas y consultas mediante el uso de colecciones
-auxiliares en memoria.
+Qué mejoré
 
-Las listas principales se mantienen para almacenar, recorrer, listar y
-persistir los objetos. Los diccionarios y el conjunto se utilizan únicamente
-como estructuras auxiliares para operaciones frecuentes.
+Buscar producto por código Antes, para buscar un producto tocaba recorrer toda la lista uno por uno hasta encontrarlo. Ahora hice un diccionario _productos_por_codigo donde la clave es el código del producto, entonces la búsqueda es directa.
 
-## Mejoras realizadas en la Semana 12
+Buscar usuario por identificación Hice lo mismo con los usuarios, un diccionario _usuarios_por_identificacion para no tener que recorrer toda la lista cada vez que se necesita un usuario.
 
-### Índice de productos por código
+Consultar ventas de un usuario Este era el que más se demoraba antes, porque tenía que revisar todas las ventas registradas para encontrar las de un usuario. Ahora tengo un diccionario _ventas_por_usuario donde cada usuario ya tiene su propia lista de ventas guardada, entonces la consulta es más rápida.
 
-Se creó el diccionario `_productos_por_codigo`, donde la clave es el código
-del producto y el valor es el objeto `Producto`.
+Categorías con set Para las categorías de los productos usé un set llamado _categorias, porque ahí no importa el orden y no puede haber repetidos. También hice una función existe_categoria() para verificar rápido si una categoría ya existe.
 
-Antes, para buscar un producto se recorría toda la lista. Ahora la búsqueda se
-realiza directamente mediante el código.
+Cómo se mantienen actualizados los índices
 
-Esto también mejora las validaciones de códigos repetidos, la actualización y
-la eliminación de productos.
+Cada vez que se registra, actualiza o elimina un producto o un usuario, o se hace una venta, los diccionarios se actualizan también para que no queden desactualizados.
 
-### Índice de usuarios por identificación
+Cuando se cierra el programa y se vuelve a abrir, los datos se cargan de nuevo desde los JSON y ahí mismo se reconstruyen los índices con la función _reconstruir_indices(), para que todo quede sincronizado otra vez.
 
-Se creó el diccionario `_usuarios_por_identificacion`, utilizando la
-identificación como clave.
-
-La búsqueda de usuarios ya no necesita recorrer toda la lista, por lo que se
-facilita la validación de usuarios existentes y las operaciones de venta.
-
-### Índice de ventas por usuario
-
-Se creó el diccionario `_ventas_por_usuario`. Cada identificación de usuario
-se relaciona con una lista de sus ventas.
-
-De esta forma, la consulta de ventas de un usuario evita recorrer toda la
-colección de ventas.
-
-### Uso de set para categorías
-
-Se utiliza el conjunto `_categorias` para mantener los nombres de categorías
-sin duplicados.
-
-También se agregó una validación mediante `existe_categoria()` para comprobar
-rápidamente si una categoría pertenece al conjunto.
-
-## Reconstrucción de índices
-
-Cuando el programa inicia, los productos, usuarios y ventas se recuperan desde
-los archivos JSON mediante `ArchivoServicio`.
-
-Después de cargar las colecciones, `Restaurante` reconstruye los índices en
-memoria mediante `_reconstruir_indices()`.
-
-Esto permite que los datos persistidos y las estructuras auxiliares vuelvan a
-estar sincronizados después de cerrar y ejecutar nuevamente el programa.
-
-## Sincronización de las estructuras auxiliares
-
-Los índices se actualizan cuando se registran nuevos productos o usuarios y
-cuando se registra una venta.
-
-Al actualizar o eliminar productos también se reconstruyen las estructuras
-auxiliares para mantener la información coherente.
-
-Las listas principales no fueron reemplazadas por diccionarios, ya que siguen
-siendo necesarias para listar los datos y guardarlos en los archivos JSON.
-
-## Relación Usuario - Producto mediante Venta
-
-La clase `Venta` mantiene la relación entre un usuario y un producto.
-
-Para realizar una venta se utiliza:
-
-```text
-vender_producto(codigo_producto, identificacion_usuario, cantidad)
-```
-
-Primero se buscan el usuario y el producto utilizando los índices auxiliares.
-Después se valida la cantidad y el stock disponible.
-
-Si todas las condiciones se cumplen, se registra la venta, se actualiza el
-índice de ventas por usuario y se disminuye el stock del producto.
-
-## Persistencia
-
-La información se conserva en tres archivos JSON:
-
-- `productos.json`: almacena los productos y su stock.
-- `usuarios.json`: almacena los usuarios registrados.
-- `ventas.json`: almacena las ventas realizadas.
-
-Los índices de la Semana 12 son estructuras en memoria. No se guardan en JSON,
-porque se reconstruyen nuevamente al iniciar el programa.
-
-## Estructura del proyecto
-
-```text
+Estructura del proyecto
 restaurante_app/
 ├── datos/
 │   ├── productos.json
 │   ├── usuarios.json
 │   └── ventas.json
 ├── modelos/
-│   ├── __init__.py
 │   ├── producto.py
 │   ├── usuario.py
 │   └── venta.py
 ├── servicios/
-│   ├── __init__.py
 │   ├── archivo_servicio.py
 │   └── restaurante.py
 └── main.py
-```
+Cómo ejecutarlo
 
-## Forma de ejecución
+Desde la carpeta restaurante_app:
 
-Abrir una terminal dentro de la carpeta `restaurante_app` y ejecutar:
-
-```text
 python main.py
-```
+Pruebas que hice
+Cargué los productos, usuarios y ventas que ya tenía guardados
+Busqué un producto por su código y sí lo encontró bien
+Busqué un usuario por su identificación y también funcionó
+Consulté las ventas de un usuario y salieron todas
+Vendí un producto y el stock bajó correctamente
+Cerré el programa y lo volví a abrir para ver si los datos y los índices seguían bien, y sí funcionó
+Conclusión
 
-También se puede ejecutar directamente desde Visual Studio Code.
-
-## Pruebas realizadas
-
-Se realizaron las siguientes comprobaciones:
-
-1. Se cargaron productos, usuarios y ventas existentes desde JSON.
-2. Se comprobó la búsqueda de un producto mediante su código.
-3. Se comprobó la búsqueda de un usuario mediante su identificación.
-4. Se consultaron las ventas relacionadas con un usuario.
-5. Se realizó una venta y se comprobó la disminución del stock.
-6. Se verificó que una venta nueva aparezca en el índice del usuario.
-7. Se comprobó que las categorías se mantengan sin valores repetidos mediante
-   `set`.
-8. Se verificó que los índices se reconstruyan después de cargar los datos
-   desde JSON.
-
-## Conclusión
-
-En esta Semana 12 se mejoró el rendimiento interno de `restaurante_app`
-utilizando colecciones auxiliares.
-
-Las listas principales se conservaron para mantener la estructura del proyecto
-y la persistencia de los datos. Los diccionarios permiten realizar búsquedas
-directas por código de producto e identificación de usuario, mientras que el
-índice de ventas facilita consultar las ventas de un usuario.
-
-El conjunto de categorías permite realizar consultas de pertenencia sin
-recorrer nuevamente todos los productos. De esta manera, el proyecto conserva
-las funcionalidades de la Semana 11 y mejora la forma en que se realizan
-búsquedas, consultas y validaciones.
+Con esto el programa sigue haciendo lo mismo que en la semana 11 (vender productos, controlar el stock, guardar en JSON), pero ahora las búsquedas de producto, usuario y ventas por usuario son más rápidas porque uso diccionarios en vez de recorrer toda la lista cada vez.
